@@ -1,12 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# All Vagrant configuration is done below. The "2" in Vagrant.configure
-# configures the configuration version (we support older styles for
-# backwards compatibility). Please don't change it unless you know what
-# you're doing.
 Vagrant.configure(2) do |config|
-  #config.vm.box = "ferventcoder/win7pro-x64-nocm-lite"
   config.vm.box = "w7-choco-vs2013community"
 
   config.vm.box_check_update = false
@@ -72,14 +67,12 @@ param (
   $downloader.DownloadFile($url, $file)
 }
 
-# download 7zip
 [System.Console]::Writeline( "Download 7za from chocolatey")
 $7zaExe = Join-Path $installDir '7za.exe'
 
 Download-File 'https://chocolatey.org/7za.exe' "$7zaExe"
 
 
-# unzip the package
 [System.Console]::Writeline( "Extract cygwin to " + $destCygwin)
 Start-Process "$7zaExe" -ArgumentList "x -o`"c:\\`" -y `"$destCygwin`"" -Wait -NoNewWindow
 
