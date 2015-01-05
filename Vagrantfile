@@ -37,6 +37,8 @@ $destJava = Join-Path $installDir $file_java
 [System.Console]::Writeline($file)
 [System.Console]::Writeline($destCygwin)
 
+<#
+
 $webclientFtp = New-Object System.Net.WebClient 
 $webclientFtp.Credentials = New-Object System.Net.NetworkCredential($user,$pass)  
 
@@ -76,19 +78,28 @@ Download-File 'https://chocolatey.org/7za.exe' "$7zaExe"
 [System.Console]::Writeline( "Extract cygwin to " + $destCygwin)
 Start-Process "$7zaExe" -ArgumentList "x -o`"c:\\`" -y `"$destCygwin`"" -Wait -NoNewWindow
 
+#>
 $script = "c:\\cygwin\\home\\vagrant\\script.sh"
+
 
 [System.Console]::Writeline( "Generisem script za pokretanje LO build-a" )
 
 $stream = [System.IO.StreamWriter] $script
 $stream.Write("#!/bin/bash`n")
-$stream.Write("tar xvfz /cygdrive/c/Users/vagrant/$file_java`n")
+# $stream.Write("tar xvfz /cygdrive/c/Users/vagrant/$file_java`n")
+$stream.Write("rm /cygdrive/c/Users/vagrant/$file_java`n")
 $stream.Write("mkdir lo`n")
 $stream.Write("echo ``pwd```n")
 $stream.Write("cd lo`n")
-$stream.Write("tar xvfz /cygdrive/c/Users/vagrant/libreoffice_core.tar.gz`n")
-$stream.Write("git checkout -f`n")
+# $stream.Write("tar xvfz /cygdrive/c/Users/vagrant/libreoffice_core.tar.gz`n")
+$stream.Write("rm /cygdrive/c/Users/vagrant/libreoffice_core.tar.gz`n")
+
+# $stream.Write("git checkout -f`n")
 $stream.Write("export PATH=/opt/lo/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:`$PATH`n")
+
+$stream.Write("patch -f -p1 < /cygdrive/c/vagrant/lo/lo_platform_configure_ac.diff `n")
+$stream.Write("patch -f -p1 < /cygdrive/c/vagrant/lo/test_off.diff `n")
+
 $autog = "./autogen.sh --with-junit=`$HOME/java/junit-4.10.jar"
 $autog = $autog + " --with-ant-home=`$HOME/java/apache-ant-1.9.4"
 $autog = $autog + " --enable-pch "
@@ -100,6 +111,8 @@ $autog = $autog + "  --with-build-version=`"Built by hernad`""
 $autog = $autog + "  --without-galleries --with-jpeg-turbo=no"
 $autog = $autog + "  --without-doxygen  `n"
 $stream.Write( $autog )
+
+
 $stream.Write("/opt/lo/bin/make`n")
 $stream.close()
 

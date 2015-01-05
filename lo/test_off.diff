@@ -1,0 +1,262 @@
+diff --git a/basebmp/Module_basebmp.mk b/basebmp/Module_basebmp.mk
+index 4591512..0c7d84e 100644
+--- a/basebmp/Module_basebmp.mk
++++ b/basebmp/Module_basebmp.mk
+@@ -19,8 +19,5 @@ $(eval $(call gb_Module_add_targets,basebmp,\
+ ))
+ endif
+ 
+-$(eval $(call gb_Module_add_check_targets,basebmp,\
+-    CppunitTest_basebmp \
+-))
+ 
+ # vim: set noet sw=4 ts=4:
+diff --git a/basegfx/Module_basegfx.mk b/basegfx/Module_basegfx.mk
+index c854d99..c4a195e 100644
+--- a/basegfx/Module_basegfx.mk
++++ b/basegfx/Module_basegfx.mk
+@@ -13,8 +13,5 @@ $(eval $(call gb_Module_add_targets,basegfx,\
+     Library_basegfx \
+ ))
+ 
+-$(eval $(call gb_Module_add_check_targets,basegfx,\
+-    CppunitTest_basegfx \
+-))
+ 
+ # vim: set noet sw=4 ts=4:
+diff --git a/basic/Module_basic.mk b/basic/Module_basic.mk
+index 98eb344..b6cb184 100644
+--- a/basic/Module_basic.mk
++++ b/basic/Module_basic.mk
+@@ -16,11 +16,6 @@ $(eval $(call gb_Module_add_l10n_targets,basic,\
+ ))
+ 
+ $(eval $(call gb_Module_add_check_targets,basic,\
+-     CppunitTest_basic_scanner \
+-     CppunitTest_basic_enable \
+-     CppunitTest_basic_nested_struct \
+-     CppunitTest_basic_coverage \
+-     CppunitTest_basic_vba \
+ ))
+ 
+ endif
+diff --git a/binaryurp/Module_binaryurp.mk b/binaryurp/Module_binaryurp.mk
+index fcfd303..749875d 100644
+--- a/binaryurp/Module_binaryurp.mk
++++ b/binaryurp/Module_binaryurp.mk
+@@ -14,8 +14,6 @@ $(eval $(call gb_Module_add_targets,binaryurp,\
+ ))
+ 
+ $(eval $(call gb_Module_add_check_targets,binaryurp,\
+-	CppunitTest_binaryurp_test-cache \
+-	CppunitTest_binaryurp_test-unmarshal \
+ ))
+ 
+ # vim: set noet sw=4 ts=4:
+diff --git a/chart2/Module_chart2.mk b/chart2/Module_chart2.mk
+index 16a74a1..dd6026d 100644
+--- a/chart2/Module_chart2.mk
++++ b/chart2/Module_chart2.mk
+@@ -22,8 +22,6 @@ $(eval $(call gb_Module_add_l10n_targets,chart2,\
+ ))
+ 
+ $(eval $(call gb_Module_add_slowcheck_targets,chart2,\
+-    CppunitTest_chart2_export \
+-    CppunitTest_chart2_import \
+ ))
+ 
+ ifeq ($(ENABLE_CHART_TESTS),TRUE)
+diff --git a/comphelper/Module_comphelper.mk b/comphelper/Module_comphelper.mk
+index 75d7c2a..cf084b7 100644
+--- a/comphelper/Module_comphelper.mk
++++ b/comphelper/Module_comphelper.mk
+@@ -28,8 +28,6 @@ $(eval $(call gb_Module_add_subsequentcheck_targets,comphelper,\
+ ))
+ 
+ $(eval $(call gb_Module_add_check_targets,comphelper,\
+-    CppunitTest_comphelper_syntaxhighlight_test \
+-    CppunitTest_comphelper_test \
+ ))
+ 
+ # vim: set noet sw=4 ts=4:
+diff --git a/configure.ac b/configure.ac
+index 72ef58c..2add753 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -9,7 +9,7 @@ dnl in order to create a configure script.
+ # several non-alphanumeric characters, those are split off and used only for the
+ # ABOUTBOXPRODUCTVERSIONSUFFIX in openoffice.lst. Why that is necessary, no idea.
+ 
+-AC_INIT([LibreOffice],[4.5.0.0.alpha0+],[],[],[http://documentfoundation.org/])
++AC_INIT([LO_Platform],[4.5.0.0.20141213],[],[],[http://documentfoundation.org/])
+ 
+ AC_PREREQ([2.59])
+ 
+@@ -115,7 +115,7 @@ AC_CANONICAL_HOST
+ 
+ AC_MSG_CHECKING([for product name])
+ if test "$enable_release_build" = "" -o "$enable_release_build" = "no"; then
+-    PRODUCTNAME=AC_PACKAGE_NAME"Dev"
++    PRODUCTNAME=AC_PACKAGE_NAME
+ else
+     PRODUCTNAME=AC_PACKAGE_NAME
+ fi
+diff --git a/connectivity/Module_connectivity.mk b/connectivity/Module_connectivity.mk
+index 210a477..abf1aec 100644
+--- a/connectivity/Module_connectivity.mk
++++ b/connectivity/Module_connectivity.mk
+@@ -126,7 +126,6 @@ $(eval $(call gb_Module_add_targets,connectivity,\
+ ))
+ 
+ $(eval $(call gb_Module_add_check_targets,connectivity,\
+-	CppunitTest_connectivity_mork \
+ ))
+ 
+ endif
+@@ -143,7 +142,6 @@ ifeq ($(OS),WNT)
+ 
+ ifneq ($(VCVER)_$(WINDOWS_SDK_VERSION),110_70)
+ $(eval $(call gb_Module_add_check_targets,connectivity,\
+-	CppunitTest_connectivity_ado \
+ ))
+ endif
+ endif
+@@ -159,7 +157,6 @@ endif
+ 
+ # general tests
+ $(eval $(call gb_Module_add_check_targets,connectivity,\
+-	CppunitTest_connectivity_commontools \
+ ))
+ 
+ # vim: set noet sw=4 ts=4:
+diff --git a/cppu/Module_cppu.mk b/cppu/Module_cppu.mk
+index 51abe4d..fc68c6d 100644
+--- a/cppu/Module_cppu.mk
++++ b/cppu/Module_cppu.mk
+@@ -21,11 +21,6 @@ $(eval $(call gb_Module_add_targets,cppu,\
+ ))
+ 
+ $(eval $(call gb_Module_add_check_targets,cppu,\
+-	CppunitTest_cppu_qa_any \
+-	CppunitTest_cppu_qa_recursion \
+-	CppunitTest_cppu_qa_reference \
+-	CppunitTest_cppu_qa_unotype \
+-	CppunitTest_cppu_test_cppumaker \
+ ))
+ 
+ # vim: set noet sw=4 ts=4:
+diff --git a/solenv/gbuild/CppunitTest.mk b/solenv/gbuild/CppunitTest.mk
+index 47f1110..eca23ba 100644
+--- a/solenv/gbuild/CppunitTest.mk
++++ b/solenv/gbuild/CppunitTest.mk
+@@ -78,30 +78,8 @@ $(call gb_CppunitTest_get_clean_target,%) :
+ 
+ .PHONY : $(call gb_CppunitTest_get_target,%)
+ $(call gb_CppunitTest_get_target,%) :| $(gb_CppunitTest_CPPTESTDEPS)
++	$(call gb_Output_announce,$*,$(true),hernadXXXXXXXXXXXXXXCUT,2)
+ 	$(call gb_Output_announce,$*,$(true),CUT,2)
+-	$(call gb_Helper_abbreviate_dirs,\
+-		mkdir -p $(dir $@) && \
+-		rm -fr $@.user && mkdir $@.user && \
+-		$(if $(gb_CppunitTest__use_confpreinit), \
+-		    $(INSTDIR)/program/lokconf_init $(call gb_CppunitTest__make_args) &&) \
+-		$(if $(gb_CppunitTest__interactive),, \
+-			$(if $(value gb_CppunitTest_postprocess), \
+-				rm -fr $@.core && mkdir $@.core && cd $@.core &&)) \
+-		($(gb_CppunitTest_CPPTESTPRECOMMAND) \
+-		$(if $(G_SLICE),G_SLICE=$(G_SLICE)) \
+-		$(if $(GLIBCXX_FORCE_NEW),GLIBCXX_FORCE_NEW=$(GLIBCXX_FORCE_NEW)) \
+-		$(if $(HEADLESS),,VCL_HIDE_WINDOWS=1) \
+-		$(if $(strip $(PYTHON_URE)),\
+-			PYTHONDONTWRITEBYTECODE=1) \
+-		$(ICECREAM_RUN) $(gb_CppunitTest_GDBTRACE) $(gb_CppunitTest_VALGRINDTOOL) $(gb_CppunitTest_CPPTESTCOMMAND) \
+-		$(call gb_LinkTarget_get_target,$(call gb_CppunitTest_get_linktarget,$*)) \
+-		$(call gb_CppunitTest__make_args) \
+-		$(if $(gb_CppunitTest__interactive),, \
+-			> $@.log 2>&1 \
+-			|| ($(if $(value gb_CppunitTest_postprocess), \
+-					RET=$$?; \
+-					$(call gb_CppunitTest_postprocess,$(gb_CppunitTest_CPPTESTCOMMAND),$@.core,$$RET) >> $@.log 2>&1;) \
+-				cat $@.log; $(SRCDIR)/solenv/bin/unittest-failed.sh Cppunit $* $(OS)))))
+ 
+ define gb_CppunitTest_CppunitTest
+ $(call gb_CppunitTest__CppunitTest_impl,$(1),$(call gb_CppunitTest_get_linktarget,$(1)))
+diff --git a/solenv/gbuild/JunitTest.mk b/solenv/gbuild/JunitTest.mk
+index 8370603..a5d3fb99 100644
+--- a/solenv/gbuild/JunitTest.mk
++++ b/solenv/gbuild/JunitTest.mk
+@@ -33,25 +33,7 @@ ifneq (,$(strip $(OOO_JUNIT_JAR)))
+ .PHONY : $(call gb_JunitTest_get_target,%)
+ $(call gb_JunitTest_get_target,%) :
+ 	$(call gb_Output_announce,$*,$(true),JUT,2)
+-	$(call gb_Helper_abbreviate_dirs,\
+-        rm -rf $(call gb_JunitTest_get_userdir,$*) && \
+-		mkdir -p $(call gb_JunitTest_get_userdir,$*) && \
+-        ($(gb_JunitTest_JAVACOMMAND) \
+-            -classpath "$(T_CP)" \
+-            $(DEFS) \
+-            org.junit.runner.JUnitCore \
+-            $(CLASSES) > $@.log 2>&1 || \
+-		(cat $@.log \
+-		&& echo "to rerun just this failed test without all others, run:" \
+-		&& echo && echo "    make JunitTest_$*" && echo \
+-		&& echo "cd into the module dir to run the tests faster" \
+-		&& echo "Or to do interactive debugging (non-Windows), run two shells with:" \
+-		&& echo \
+-		&& echo "    make debugrun" \
+-		&& echo "    make gb_JunitTest_DEBUGRUN=T JunitTest_$*" \
+-		&& echo \
+-		&& false)))
+-	$(CLEAN_CMD)
++	$(call gb_Output_announce,$*,$(true),JUThernadJAAAAAAAAAAAAAAAAAAAAAAAVAAAAAAAAAAAAAAA,2)
+ 
+ define gb_JunitTest_JunitTest
+ $(call gb_JunitTest_get_target,$(1)) : T_CP := $(call gb_JavaClassSet_get_classdir,$(call gb_JunitTest_get_classsetname,$(1)))$$(gb_CLASSPATHSEP)$(OOO_JUNIT_JAR)$(if $(HAMCREST_JAR),$$(gb_CLASSPATHSEP)$(HAMCREST_JAR))$$(gb_CLASSPATHSEP)$(INSTROOT)/$(LIBO_URE_LIB_FOLDER)
+diff --git a/solenv/gbuild/Module.mk b/solenv/gbuild/Module.mk
+index 253564c..3713057 100644
+--- a/solenv/gbuild/Module.mk
++++ b/solenv/gbuild/Module.mk
+@@ -78,6 +78,7 @@ $(call gb_Module_get_l10n_target,%) :
+ 
+ $(call gb_Module_get_check_target,%) :
+ 	$(call gb_Output_announce,$*,$(true),CHK,5)
++	$(call gb_Output_announce,$*,$(true),HHHHHHHHHHHHHHHHHHHHHHHHHHHHHernadCHK,5)
+ 	$(call gb_Output_announce_title,module $* checks done.)
+ 	-$(call gb_Helper_abbreviate_dirs,\
+ 		mkdir -p $(dir $@) && \
+diff --git a/solenv/gbuild/PythonTest.mk b/solenv/gbuild/PythonTest.mk
+index ce5f5ed..5293525 100644
+--- a/solenv/gbuild/PythonTest.mk
++++ b/solenv/gbuild/PythonTest.mk
+@@ -36,30 +36,7 @@ ifneq ($(DISABLE_PYTHON),TRUE)
+ .PHONY : $(call gb_PythonTest_get_target,%)
+ $(call gb_PythonTest_get_target,%) :| $(gb_PythonTest_DEPS)
+ 	$(call gb_Output_announce,$*,$(true),PYT,2)
+-	$(call gb_Helper_abbreviate_dirs,\
+-		rm -rf $(dir $(call gb_PythonTest_get_target,$*)) && \
+-		mkdir -p $(dir $(call gb_PythonTest_get_target,$*)) && \
+-		$(if $(gb_CppunitTest__interactive),, \
+-			$(if $(value gb_CppunitTest_postprocess), \
+-				rm -fr $@.core && mkdir $@.core && cd $@.core &&)) \
+-		($(gb_PythonTest_PRECOMMAND) \
+-		$(if $(G_SLICE),G_SLICE=$(G_SLICE)) \
+-		$(if $(GLIBCXX_FORCE_NEW),GLIBCXX_FORCE_NEW=$(GLIBCXX_FORCE_NEW)) \
+-		$(DEFS) \
+-		TEST_LIB=$(call gb_Library_get_target,test) \
+-		URE_BOOTSTRAP=vnd.sun.star.pathname:$(call gb_Helper_get_rcfile,$(INSTROOT)/$(LIBO_ETC_FOLDER)/fundamental) \
+-		PYTHONPATH="$(PYPATH)" \
+-		UserInstallation=$(call gb_Helper_make_url,$(dir $(call gb_PythonTest_get_target,$*))user) \
+-		TestUserDir="$(call gb_Helper_make_url,$(dir $(call gb_PythonTest_get_target,$*)))" \
+-		PYTHONDONTWRITEBYTECODE=1 \
+-		$(gb_CppunitTest_GDBTRACE) $(gb_CppunitTest_VALGRINDTOOL) $(gb_PythonTest_COMMAND) \
+-			$(MODULES) \
+-		$(if $(gb_CppunitTest__interactive),, \
+-			> $@.log 2>&1 \
+-			|| ($(if $(value gb_CppunitTest_postprocess), \
+-					RET=$$?; \
+-					$(call gb_CppunitTest_postprocess,$(gb_PythonTest_EXECUTABLE_GDB),$@.core,$$RET) >> $@.log 2>&1;) \
+-				cat $@.log; $(SRCDIR)/solenv/bin/unittest-failed.sh Python $*))))
++	$(call gb_Output_announce,$*,$(true),PYTPYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYhernad,2)
+ 
+ # always use udkapi and URE services
+ define gb_PythonTest_PythonTest
