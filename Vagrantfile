@@ -37,11 +37,8 @@ $destJava = Join-Path $installDir $file_java
 [System.Console]::Writeline($file)
 [System.Console]::Writeline($destCygwin)
 
-<#
-
 $webclientFtp = New-Object System.Net.WebClient 
 $webclientFtp.Credentials = New-Object System.Net.NetworkCredential($user,$pass)  
-
 
 $uri = New-Object System.Uri($ftp + $file) 
 [System.Console]::Writeline( "download: " + $uri)
@@ -78,23 +75,22 @@ Download-File 'https://chocolatey.org/7za.exe' "$7zaExe"
 [System.Console]::Writeline( "Extract cygwin to " + $destCygwin)
 Start-Process "$7zaExe" -ArgumentList "x -o`"c:\\`" -y `"$destCygwin`"" -Wait -NoNewWindow
 
-#>
 $script = "c:\\cygwin\\home\\vagrant\\script.sh"
-
+$new_line = "`n"
 
 [System.Console]::Writeline( "Generisem script za pokretanje LO build-a" )
 
 $stream = [System.IO.StreamWriter] $script
 $stream.Write("#!/bin/bash`n")
-# $stream.Write("tar xvfz /cygdrive/c/Users/vagrant/$file_java`n")
+$stream.Write("tar xvfz /cygdrive/c/Users/vagrant/$file_java`n")
 $stream.Write("rm /cygdrive/c/Users/vagrant/$file_java`n")
 $stream.Write("mkdir lo`n")
 $stream.Write("echo ``pwd```n")
 $stream.Write("cd lo`n")
-# $stream.Write("tar xvfz /cygdrive/c/Users/vagrant/libreoffice_core.tar.gz`n")
+$stream.Write("tar xvfz /cygdrive/c/Users/vagrant/libreoffice_core.tar.gz`n")
 $stream.Write("rm /cygdrive/c/Users/vagrant/libreoffice_core.tar.gz`n")
 
-# $stream.Write("git checkout -f`n")
+$stream.Write("git checkout -f`n")
 $stream.Write("export PATH=/opt/lo/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:`$PATH`n")
 
 $stream.Write("patch -f -p1 < /cygdrive/c/vagrant/lo/lo_platform_configure_ac.diff `n")
@@ -112,8 +108,19 @@ $autog = $autog + "  --without-galleries --with-jpeg-turbo=no"
 $autog = $autog + "  --without-doxygen  `n"
 $stream.Write( $autog )
 
+$stream.Write("/opt/lo/bin/make" + $new_line)
 
-$stream.Write("/opt/lo/bin/make`n")
+$stream.Write( "cd instdir" + $new_line)
+
+$stream.Write( "zip -r LO_Platform.zip LIC* CRE* NOT* help presets program share" + $new_line)
+$stream.Write( "zip -r LO_Platform_sdk.zip sdk" + $new_line)
+
+$stream.Write( "cp /cygdrive/c/vagrant/lo/hernad_ssh.key /home/vagrant/ssh.key" + $new_line )
+$strean.Write( "chmod 0600 /home/vagrant/ssh.key" + $new_line )
+$stream.Write( "export SSH_OPTS=`"-i /home/vagrant/ssh.key -o StrictHostKeyChecking=no`"" + $new_line)
+$stream.Write( "scp `$SSH_OPTS LO_Platform*.zip root@files.bring.out.ba:/mnt/HD/HD_a2/bringout/Platform/win32" + $new_line)
+$stream.Write( "ssh `$SSH_OPTS root@files.bring.out.ba chown hernad /mnt/HD/HD_a2/bringout/Platform/win32/LO_Platform*.zip" + $new_line)
+
 $stream.close()
 
 $command = @'
