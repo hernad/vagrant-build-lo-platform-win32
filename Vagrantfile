@@ -9,8 +9,6 @@ Vagrant.configure(2) do |config|
   config.vm.communicator = "winrm"
   config.vm.guest = :windows
 
-  # config.vm.network "private_network", ip: "192.168.33.10"
-
   config.vm.provider "virtualbox" do |vb|
      vb.gui = true
      vb.memory = "2048"
@@ -116,7 +114,7 @@ $stream.Write( "zip -r LO_Platform.zip LIC* CRE* NOT* help presets program share
 $stream.Write( "zip -r LO_Platform_sdk.zip sdk" + $new_line)
 
 $stream.Write( "cp /cygdrive/c/vagrant/lo/hernad_ssh.key /home/vagrant/ssh.key" + $new_line )
-$strean.Write( "chmod 0600 /home/vagrant/ssh.key" + $new_line )
+$stream.Write( "chmod 0600 /home/vagrant/ssh.key" + $new_line )
 $stream.Write( "export SSH_OPTS=`"-i /home/vagrant/ssh.key -o StrictHostKeyChecking=no`"" + $new_line)
 $stream.Write( "scp `$SSH_OPTS LO_Platform*.zip root@files.bring.out.ba:/mnt/HD/HD_a2/bringout/Platform/win32" + $new_line)
 $stream.Write( "ssh `$SSH_OPTS root@files.bring.out.ba chown hernad /mnt/HD/HD_a2/bringout/Platform/win32/LO_Platform*.zip" + $new_line)
